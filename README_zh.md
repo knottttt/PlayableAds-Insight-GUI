@@ -6,6 +6,14 @@ Language / 语言: [English](./README.md) | [中文](./README_zh.md)
 
 一个本地离线的 playable HTML 素材与跳转链接替换工具。
 
+## 给小白用户（ZIP 使用）
+
+1. 下载 `PlayableAds-Insight-GUI.zip`
+2. 右键压缩包，选择“解压到当前文件夹”
+3. 打开解压后的文件夹，双击 `index.html`
+4. 如果浏览器弹出安全提示，选择继续打开
+5. 进入页面后按提示上传你的 playable HTML 开始使用
+
 ## 功能特性
 
 - 支持解析常见 playable 资源模式：`ZIP`、`adapterZip`、`inline data:image`
