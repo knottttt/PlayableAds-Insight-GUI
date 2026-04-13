@@ -1,4 +1,6 @@
-# PlayableTool 4.3.0 更新说明
+# PlayableAds Insight GUI 4.3.0 更新说明
+
+> 免责声明：本仓库仅供学习与交流，不允许用于任何商业用途。
 
 ## 本次重点
 

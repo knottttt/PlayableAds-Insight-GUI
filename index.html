@@ -2,38 +2,48 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>PlayableTool UA - H5 素材替换工具</title>
+  <title>PlayableAds Insight GUI - H5 素材替换工具</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
     :root {
-      --bg: #f7f6f3;
-      --sidebar-bg: #f4f3ef;
+      --bg: #f6f8fa;
+      --sidebar-bg: #f6f8fa;
       --card-bg: #ffffff;
-      --border-subtle: #e3e2dd;
-      --border-strong: #d2d0c8;
-      --text-main: #262626;
-      --text-muted: #7a7a7a;
-      --accent: #2563eb;
-      --accent-soft: #e3edff;
-      --radius-lg: 12px;
-      --radius-md: 8px;
-      --radius-sm: 6px;
+      --border-subtle: #d0d7de;
+      --border-strong: #afb8c1;
+      --text-main: #1f2328;
+      --text-muted: #57606a;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
       --preview-phone-height: clamp(420px, 52vh, 680px);
       --preview-tablet-height: clamp(420px, 52vh, 620px);
-      --app-shell-height: calc(100vh - 32px);
+      --app-shell-height: calc(100vh - 28px);
     }
 
     * {
       box-sizing: border-box;
     }
 
+    @keyframes float-in {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     html, body {
       margin: 0;
       padding: 0;
       min-height: 100%;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
       color: var(--text-main);
       background: var(--bg);
     }
@@ -48,51 +58,51 @@
     .app-root {
       display: flex;
       flex: 1;
-      width: min(1680px, calc(100vw - 32px));
-      max-width: 1680px;
+      width: min(1700px, calc(100vw - 28px));
+      max-width: 1700px;
       height: var(--app-shell-height);
-      margin: 16px;
-      background: transparent;
-      box-shadow: none;
+      margin: 14px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 22px;
+      background: #ffffff;
+      box-shadow:
+        0 8px 24px rgba(31, 35, 40, 0.06),
+        0 1px 0 rgba(255, 255, 255, 0.8) inset;
       overflow: hidden;
     }
 
-    /* 左侧类似 Notion 的信息栏 */
     .sidebar {
-      width: 320px;
+      width: 300px;
       height: 100%;
-      background: linear-gradient(135deg, #f5f3ed, #f0eee9);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 24px 24px 20px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border-subtle);
+      padding: 22px 18px 16px;
       display: flex;
       flex-direction: column;
-      gap: 24px;
-      box-shadow:
-        0 12px 28px rgba(15, 23, 42, 0.06),
-        0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+      gap: 16px;
+      animation: float-in 0.28s ease-out both;
     }
 
     .logo-row {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
     .logo-mark {
-      width: 26px;
-      height: 26px;
-      border-radius: 6px;
-      background: radial-gradient(circle at 20% 20%, #2563eb, #7c3aed);
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      background: linear-gradient(155deg, #218bff, #0969da);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
-      font-size: 14px;
-      font-weight: 600;
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7),
-        0 6px 18px rgba(37, 99, 235, 0.35);
+      color: #f6f8fa;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      box-shadow: 0 6px 14px rgba(9, 105, 218, 0.25);
     }
 
     .logo-text-main {
@@ -107,29 +117,29 @@
     }
 
     .sidebar-section {
-      padding: 10px;
+      padding: 11px 12px;
       border-radius: var(--radius-md);
-      background: rgba(255, 255, 255, 0.7);
-      border: 1px solid rgba(226, 232, 240, 0.9);
+      border: 1px solid var(--border-subtle);
+      background: #ffffff;
     }
 
     .sidebar-section-title {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
-      color: var(--text-muted);
+      color: #57606a;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 8px;
+      letter-spacing: 0.1em;
+      margin-bottom: 7px;
     }
 
     .sidebar-kv {
       font-size: 12px;
-      line-height: 1.6;
+      line-height: 1.62;
       color: var(--text-muted);
     }
 
     .sidebar-kv strong {
-      color: #4b5563;
+      color: #24292f;
       font-weight: 600;
     }
 
@@ -137,56 +147,65 @@
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      padding: 0 6px;
+      padding: 1px 8px;
       border-radius: 999px;
       background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 11px;
-      font-weight: 500;
+      color: #0969da;
+      font-size: 10px;
+      font-weight: 600;
       margin-left: 4px;
+      border: 1px solid #b6e3ff;
     }
 
     .sidebar-footer {
       margin-top: auto;
       font-size: 11px;
-      color: var(--text-muted);
-      border-top: 1px solid rgba(226, 232, 240, 0.8);
-      padding-top: 8px;
+      color: #57606a;
+      border-top: 1px dashed #d0d7de;
+      padding-top: 10px;
+      line-height: 1.55;
     }
 
-    /* 右侧主区域 - Notion 风卡片布局 */
     .main-area {
       flex: 1;
       display: flex;
       flex-direction: column;
       height: 100%;
-      padding: 18px 20px 16px;
+      padding: 14px 14px 12px;
       gap: 10px;
       min-height: 0;
+      background: #f6f8fa;
     }
 
     .topbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
+      padding: 8px 12px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 13px;
+      background: #ffffff;
+      animation: float-in 0.35s ease-out both;
     }
 
     .topbar-title {
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 9px;
+      color: #1f2328;
     }
 
     .topbar-title span {
       display: inline-flex;
-      padding: 0 8px;
+      padding: 1px 9px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
+      border: 1px solid #d0d7de;
+      background: #f6f8fa;
       font-size: 11px;
-      color: var(--text-muted);
+      color: #57606a;
       font-weight: 500;
     }
 
@@ -197,20 +216,22 @@
 
     .pill {
       border-radius: 999px;
-      padding: 2px 8px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 3px 10px;
+      border: 1px solid #d0d7de;
+      background: #f6f8fa;
       font-size: 11px;
-      color: var(--text-muted);
+      color: #57606a;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
     }
 
     .pill-dot {
       width: 7px;
       height: 7px;
       border-radius: 999px;
-      background: #22c55e;
+      background: #1f883d;
+      box-shadow: 0 0 0 3px rgba(31, 136, 61, 0.14);
     }
 
     .layout-row {
@@ -226,8 +247,8 @@
     .content-stack {
       display: grid;
       flex: 1;
-      grid-template-columns: minmax(520px, 1.18fr) minmax(460px, 1fr);
-      gap: 14px;
+      grid-template-columns: minmax(560px, 1.2fr) minmax(460px, 1fr);
+      gap: 12px;
       min-height: 0;
       height: 100%;
       align-items: stretch;
@@ -243,12 +264,13 @@
       border-radius: var(--radius-lg);
       border: 1px solid var(--border-subtle);
       box-shadow:
-        0 1px 2px rgba(148, 163, 184, 0.2),
-        0 0 0 1px rgba(255, 255, 255, 0.8) inset;
-      padding: 14px 14px 12px;
+        0 4px 12px rgba(31, 35, 40, 0.05),
+        0 1px 0 rgba(255, 255, 255, 0.75) inset;
+      padding: 14px;
       display: flex;
       flex-direction: column;
       min-height: 0;
+      animation: float-in 0.35s ease-out both;
     }
 
     .config-panel {
@@ -258,28 +280,29 @@
     .config-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 10px;
+      gap: 12px;
     }
 
     .config-block {
-      padding: 0;
-      border: 0;
-      background: transparent;
+      padding: 10px 11px;
+      border: 1px solid #d8dee4;
+      border-radius: var(--radius-md);
+      background: #ffffff;
       min-height: 0;
     }
 
     .config-block-title {
       font-size: 12px;
       font-weight: 600;
-      color: #374151;
-      margin-bottom: 6px;
+      color: #24292f;
+      margin-bottom: 7px;
     }
 
     .config-inline-note {
-      margin-top: 6px;
+      margin-top: 7px;
       font-size: 11px;
-      color: var(--text-muted);
-      line-height: 1.5;
+      color: #57606a;
+      line-height: 1.55;
     }
 
     .card-header {
@@ -296,7 +319,8 @@
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
+      color: #24292f;
     }
 
     .card-title-dot {
@@ -304,14 +328,15 @@
       height: 8px;
       border-radius: 999px;
       background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
     }
 
     .card-subtitle {
       font-size: 11px;
-      color: var(--text-muted);
+      color: #57606a;
       text-align: right;
       flex: 1;
-      min-width: 280px;
+      min-width: 250px;
     }
 
     .card-body {
@@ -340,25 +365,28 @@
     .field-row-inline {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       justify-content: stretch;
+      gap: 8px;
     }
 
     .input-text {
       width: 100%;
       box-sizing: border-box;
       font-size: 12px;
-      padding: 6px 8px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-subtle);
-      background: #fcfcfa;
-      color: var(--text-main);
+      line-height: 1.35;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #d0d7de;
+      background: #ffffff;
+      color: #1f2328;
       min-width: 0;
       flex: 1;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
     }
 
     .input-text:focus {
       outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.08);
+      border-color: #0969da;
+      box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.16);
       background: #ffffff;
     }
 
@@ -367,43 +395,44 @@
     }
 
     .btn {
-      border-radius: var(--radius-md);
-      padding: 6px 10px;
+      border-radius: 10px;
+      padding: 7px 11px;
       font-size: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: #f9fafb;
-      color: #374151;
+      border: 1px solid #d0d7de;
+      background: #f6f8fa;
+      color: #24292f;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: background 0.15s ease, box-shadow 0.15s ease,
-        transform 0.08s ease;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
       white-space: nowrap;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.75) inset;
     }
 
     .btn-primary {
-      background: #2563eb;
-      border-color: #1d4ed8;
-      color: white;
-      box-shadow: 0 1px 2px rgba(37, 99, 235, 0.5);
+      background: #1f883d;
+      border-color: rgba(31, 136, 61, 0.4);
+      color: #ffffff;
+      box-shadow: 0 1px 0 rgba(31, 35, 40, 0.1);
     }
 
     .btn:disabled {
-      opacity: 0.6;
+      opacity: 0.52;
       cursor: default;
       box-shadow: none;
+      transform: none;
     }
 
     .btn:not(:disabled):hover {
-      background: #eef2ff;
-      box-shadow: 0 1px 3px rgba(148, 163, 184, 0.4);
-      transform: translateY(-0.5px);
+      background: #f3f4f6;
+      border-color: #afb8c1;
+      transform: translateY(-1px);
     }
 
     .btn-primary:not(:disabled):hover {
-      background: #1d4ed8;
-      box-shadow: 0 2px 5px rgba(37, 99, 235, 0.6);
+      background: #1a7f37;
+      border-color: rgba(26, 127, 55, 0.45);
     }
 
     .btn-wide {
@@ -424,12 +453,12 @@
     }
 
     .status-text strong {
-      color: #16a34a;
-      font-weight: 500;
+      color: #1a7f37;
+      font-weight: 600;
     }
 
     .status-text.error {
-      color: #b91c1c;
+      color: #cf222e;
     }
 
     #buildStatus:empty {
@@ -442,15 +471,14 @@
     }
 
     .small.error {
-      color: #b91c1c;
+      color: #cf222e;
     }
 
-    /* 图片列表区域 */
     .image-list-wrapper {
       border-radius: var(--radius-md);
       border: 1px solid var(--border-subtle);
-      background: #fafafa;
-      padding: 12px;
+      background: #f6f8fa;
+      padding: 11px;
       flex: 1;
       height: auto;
       min-height: 0;
@@ -476,8 +504,10 @@
       overflow: auto;
       padding-right: 6px;
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 12px;
+      scrollbar-width: thin;
+      scrollbar-color: #afb8c1 transparent;
     }
 
     .preview-controls {
@@ -498,16 +528,16 @@
     .control-label {
       font-size: 12px;
       font-weight: 600;
-      color: #374151;
+      color: #24292f;
     }
 
     .segmented {
       display: inline-flex;
       align-items: center;
-      padding: 3px;
-      border-radius: 10px;
-      border: 1px solid var(--border-subtle);
-      background: #f3f4f6;
+      padding: 4px;
+      border-radius: 12px;
+      border: 1px solid #d0d7de;
+      background: #f6f8fa;
       gap: 4px;
     }
 
@@ -522,18 +552,19 @@
 
     .segmented .btn.active {
       background: #ffffff;
-      border-color: rgba(148, 163, 184, 0.5);
-      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+      border-color: #d0d7de;
+      color: #24292f;
+      box-shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
     }
 
     .device-select {
       min-width: 160px;
-      max-width: 220px;
+      max-width: 240px;
     }
 
     .preview-note {
       font-size: 11px;
-      color: var(--text-muted);
+      color: #57606a;
     }
 
     .preview-frame-wrap {
@@ -547,10 +578,7 @@
       padding: 16px;
       border-radius: var(--radius-md);
       border: 1px solid var(--border-subtle);
-      background:
-        radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.92), rgba(241, 245, 249, 0.86)),
-        linear-gradient(180deg, rgba(37, 99, 235, 0.05), rgba(15, 23, 42, 0.03)),
-        #eef2f5;
+      background: #f6f8fa;
       overflow: hidden;
     }
 
@@ -562,10 +590,8 @@
       justify-content: center;
       padding: 24px;
       text-align: center;
-      color: var(--text-muted);
-      background:
-        linear-gradient(135deg, rgba(37, 99, 235, 0.04), rgba(15, 23, 42, 0.02)),
-        #f8f7f4;
+      color: #57606a;
+      background: #f6f8fa;
     }
 
     .preview-stage {
@@ -574,9 +600,9 @@
       height: calc(var(--device-render-height, 844) * 1px * var(--device-scale, 1));
       aspect-ratio: var(--device-width, 390) / var(--device-height, 844);
       border-radius: 42px;
-      background: linear-gradient(180deg, #202226, #0f1115);
+      background: linear-gradient(180deg, #30363d, #24292f);
       box-shadow:
-        0 28px 52px rgba(15, 23, 42, 0.18),
+        0 26px 42px rgba(31, 35, 40, 0.2),
         0 0 0 1px rgba(255, 255, 255, 0.12) inset;
       overflow: hidden;
       z-index: 1;
@@ -597,7 +623,7 @@
       height: 28px;
       transform: translateX(-50%);
       border-radius: 0 0 18px 18px;
-      background: #0a0c10;
+      background: #1f2328;
       z-index: 3;
       pointer-events: none;
     }
@@ -640,7 +666,7 @@
       border-radius: 30px;
       background: #ffffff;
       overflow: hidden;
-      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.08);
+      box-shadow: inset 0 0 0 1px rgba(36, 28, 18, 0.08);
     }
 
     .preview-stage.preview-tablet::before {
@@ -668,16 +694,16 @@
       flex-direction: column;
       gap: 10px;
       padding: 10px;
-      border-radius: var(--radius-md);
-      background: #ffffff;
-      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      background: #fffdfa;
+      border: 1px solid #d0d7de;
       min-width: 0;
-      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+      box-shadow: 0 1px 2px rgba(31, 35, 40, 0.05);
     }
 
     .image-item.has-replacement {
-      background: linear-gradient(180deg, #ffffff, #f8fbff);
-      border-color: rgba(37, 99, 235, 0.2);
+      background: #f6f8fa;
+      border-color: #218bff;
     }
 
     .image-item img {
@@ -685,8 +711,8 @@
       height: 108px;
       object-fit: contain;
       border-radius: var(--radius-sm);
-      background: #f3f4f6;
-      border: 1px solid rgba(209, 213, 219, 0.8);
+      background: #ffffff;
+      border: 1px solid #d0d7de;
     }
 
     .image-item.has-replacement img {
@@ -715,15 +741,15 @@
     }
 
     .tag-old {
-      background: #f3f4f6;
-      color: #4b5563;
-      border-color: #e5e7eb;
+      background: #f6f8fa;
+      color: #57606a;
+      border-color: #d0d7de;
     }
 
     .tag-new {
-      background: #22c55e1a;
-      color: #16a34a;
-      border-color: #bbf7d0;
+      background: #ddf4ff;
+      color: #0969da;
+      border-color: #b6e3ff;
     }
 
     input[type="file"] {
@@ -761,7 +787,8 @@
       .sidebar {
         width: 100%;
         height: auto;
-        border-right: 1px solid var(--border-subtle);
+        border-right: 0;
+        border-bottom: 1px solid var(--border-subtle);
         flex-direction: row;
         gap: 12px;
         align-items: flex-start;
@@ -839,9 +866,9 @@
     <aside class="sidebar">
       <div>
         <div class="logo-row">
-          <div class="logo-mark">UA</div>
+          <div class="logo-mark">工具</div>
           <div>
-            <div class="logo-text-main">PlayableTool · UA</div>
+            <div class="logo-text-main">PlayableAds Insight GUI</div>
             <div class="logo-text-sub">H5 素材&跳转一键替换</div>
           </div>
         </div>
@@ -870,7 +897,8 @@
           · <code>adapter_zip</code> 模式通过运行时 override 生效；如素材未即时变化，建议重新打开页面验证<br />
           · 工具会统一重写常见商店链接，包括 <code>itunes.apple.com</code>、<code>apps.apple.com</code>、<code>play.google.com/store/apps</code>、部分内嵌 ZIP 内链接和 mraid / window.open 兜底逻辑<br />
           · 生成后支持直接在面板里本地预览；最终仍建议下载 HTML 抽查页面展示、首屏素材、点击跳转和文件体积<br />
-          · 使用过程中遇到任何问题，请在飞书找<strong>子薇</strong>协助处理<br />
+          · 使用过程中如遇问题，请在 GitHub 留言提交反馈<br />
+          · 免责声明：本工具仅供学习交流，禁止用于任何商业用途<br />
           </div>
         </div>
 
@@ -883,7 +911,7 @@
     <main class="main-area">
       <header class="topbar">
         <div class="topbar-title">
-          Playable 替换工具面板
+          PlayableAds Insight GUI
           <span>v4.3.0 · Cocos / ZIP / Inline</span>
         </div>
         <div class="topbar-status">
@@ -927,7 +955,7 @@
                 <input
                   id="appleStoreUrlInput"
                   class="input-text store-url-input"
-                  value="https://apps.apple.com/us/app/hello-jackpot-casino-slots/id6535655150"
+                  value="https://apps.apple.com/app/id0000000000"
                   placeholder="Apple App Store URL，如：https://apps.apple.com/..."
                 />
                 <input

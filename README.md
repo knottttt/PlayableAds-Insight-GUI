@@ -1,90 +1,44 @@
-# PlayableTool UA
+# PlayableAds Insight GUI
 
-一个本地离线使用的 playable HTML 素材替换工具。
+> Disclaimer: This repository is for learning and communication only. Commercial use is not allowed.
 
-它主要用于：
-- 解析 playable HTML 中的图片资源
-- 替换单张或多张图片
-- 统一替换跳转链接
-- 重新生成可交付的 HTML 文件
+Language / 语言: [English](./README.md) | [中文](./README_zh.md)
 
-## 当前版本
+A local offline tool for replacing playable HTML assets and store links.
 
-`v4.3.0`
+## Features
 
-## 适用场景
+- Parse common playable resource patterns: `ZIP`, `adapterZip`, `inline data:image`
+- Replace single image assets
+- Batch-replace images by filename
+- Rewrite common store links (`apps.apple.com`, `itunes.apple.com`, `play.google.com/store/apps`)
+- Regenerate a deliverable HTML file after replacement
+- Built-in local preview panel for quick validation
 
-适合以下日常工作：
-- 替换 playable 内的图片素材
-- 快速调整商店跳转链接（App Store / Google Play）
-- 高频调试同一个 HTML playable
-- 批量替换多张图片，减少重复点击上传
+## Typical Use Cases
 
-## 主要能力
+- Frequent playable image swaps during iteration
+- Rapid App Store / Google Play link updates
+- Quick local verification before final delivery
 
-- 支持解析 `ZIP`、`adapterZip`、`inline data:image` 等常见 playable 资源模式
-- 支持单张图片替换
-- 支持按文件名批量替换多张图片
-- 自动重写常见跳转链接
-- 自动注入 mraid 兜底逻辑
-- 连续生成时避免注入内容重复叠加
+## Quick Start
 
-## 4.3.0 更新内容
+1. Open [index.html](./index.html)
+2. Upload your playable HTML file
+3. Replace images (single or batch)
+4. Fill store URL(s)
+5. Click preview and validate output
+6. Download the generated HTML
 
-- 配置区升级为双商店链接输入：`Apple App Store URL` + `Google Play URL`。
-- 新增 Google Play 链接支持：可填写并替换 `play.google.com/store/apps/...` 跳转地址。
-- 跳转替换逻辑升级为分域名重写：Apple 链接只替换 Apple 域名，Google 链接只替换 Google Play 域名。
-- 注入兜底跳转逻辑升级：Android 优先打开 Google Play，iOS 优先打开 App Store。
-- 优化配置区提示文案与输入间距，提升双链接填写体验。
+## Notes
 
-## 4.2.0 更新内容
+- Batch replacement mainly works for resources that keep filenames
+- `inline` mode does not support filename-based batch replacement
+- Always do a final rendering and click-through check before production use
 
-- 修复 `window.__adapter_zip__` 多段 `+=` 拼接时只读取首段的问题。
-- 现在会从首个赋值开始，继续收集后续所有同变量拼接段，再统一解压资源表。
-- 修复部分 adapterZip playable 无法解析或图片数量明显不对的问题。
-- 保持 `script[type="text/base64"]` 和 zip 文本内嵌图支持，兼容此前 super-html 修复结果。
+## Project Files
 
-## 4.1.0 更新内容
-
-- 新增 `script[type="text/base64"]` 形式 super-html zip 入口识别，不再只支持 `window.__zip`。
-- 新增 zip 文本条目中的 `data:image` 资源扫描，支持识别像 `2.js` 这类脚本内嵌图片。
-- 修复部分 playable 只能识别出 1 张图片的问题，现可完整列出 zip 内嵌图。
-- 支持将替换后的 zip 内嵌图回写到原始文本条目，生成后的 HTML 可直接交付。
-- 解析状态文案会显示更具体的入口来源和类型，便于定位异常资源结构。
-
-## 4.0.0 更新内容
-
-- 新增本地 iframe 预览能力，生成后可直接在面板内查看替换结果，不再依赖先下载 HTML。
-- 新增设备预设与横竖切换，支持 iPhone / iPad / Android 常见尺寸预览。
-- 主界面重构为三栏工作区：说明栏、替换面板、设备预览面板，桌面端更适合一屏调试。
-- 上传 HTML 后自动解析资源，减少一次手动点击。
-- 优化图片资源列表展示与滚动区域，减少无效留白。
-
-## 3.1.0 更新内容
-
-- 新增更稳定的 `window.__zip` 解析与回写逻辑，支持 super-html 单段赋值和 `+=` 拼接
-- 新增 `window.__res` 静态资源表兜底解析，补上部分 Cocos 3.x playable 的图片识别与替换
-- 保留并增强批量换图能力，支持按文件名自动匹配 zip / 资源表图片
-- 继续优化高频调试体验，生成时基于原始 HTML 并自动清理历史注入块
-- 新增 `__zip` 重打包高压缩回写，统一使用 `DEFLATE`，避免替换素材或链接后文件体积异常膨胀
-
-## 使用方式
-
-1. 打开工具页面
-2. 上传 playable HTML 文件
-3. 工具会自动解析图片资源
-4. 按需替换单张图片，或使用批量导入图片
-5. 填写目标跳转链接
-6. 点击“生成修改后的 HTML 并下载”
-
-## 使用提醒
-
-- 批量替换主要适用于资源带文件名的模式
-- `inline` 模式暂不支持按文件名批量替换
-- 生成后的文件建议仍做一次页面效果和跳转检查
-
-## 文件说明
-
-- [index.html](/f:/PlayableTool_UI/index.html): 工具界面
-- [main.js](/f:/PlayableTool_UI/main.js): 主要处理逻辑
-- [CHANGELOG.md](/f:/PlayableTool_UI/CHANGELOG.md): 版本更新记录
+- [index.html](./index.html): UI page
+- [main.js](./main.js): core processing logic
+- [CHANGELOG.md](./CHANGELOG.md): version history
+- [UPDATE_NOTE.md](./UPDATE_NOTE.md): update note
